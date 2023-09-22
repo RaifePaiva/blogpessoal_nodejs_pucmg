@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require ('path')
 const app = express ()
 const apiRouter = require('./api/routes/apiRoutes')
+const segrouter = require('./api/routes/segRouter')
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
@@ -20,3 +21,4 @@ app.listen(port, () => {
   });
 
 app.use ('/api', apiRouter)
+app.use ('/login', segrouter)

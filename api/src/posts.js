@@ -1,6 +1,7 @@
 const knex = require("knex")(require("../../knexfile").development);
+const segRouter = require('..routes/segRouter');
 
-exports.createPost = async (req, resp) =>{
+exports.createPost = segRouter.checkToken, async (req, resp) =>{
     const {titulo, conteudo, fk_usuario} = req.body
     try{
         const post = await knex("posts")
@@ -52,7 +53,7 @@ exports.getPostById = async (req, resp) =>{
     }
 }
 
-exports.listPostsByUsuarioID = async (req, resp) =>{
+exports.listPostsByUsuarioID = segRouter.checkToken, async (req, resp) =>{
     try{
         const usuario = await knex
             .select("*")
@@ -78,7 +79,7 @@ exports.listPostsByUsuarioID = async (req, resp) =>{
     }
 }
 
-exports.deletePost = async (req, resp) =>{
+exports.deletePost = segRouter.checkToken, async (req, resp) =>{
     try{
         const post = await knex
             .select("*")

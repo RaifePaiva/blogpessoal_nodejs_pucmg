@@ -1,11 +1,12 @@
 
 const knex = require("knex")(require("../../knexfile").development);
+const bcrypt = require('bcryptjs')
 
 exports.createUser = async (req, resp) =>{
     const {login, nome, senha, perfil} = req.body
     try{
         const user = await knex("usuarios")
-            .insert({login, nome, senha, perfil})
+            .insert({login, nome, "senha": bcrypt.hashSync(senha, 8), perfil})
             .returning('id');
 
         resp.status(201).json({
