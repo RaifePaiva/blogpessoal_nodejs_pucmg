@@ -22,7 +22,7 @@ app.locals.base_url = '';
 
 // Middleware para capturar o host global
 app.use((req, res, next) => {
-  let base_url = process.env.BASE || `${req.protocol}://${req.headers.host}`
+  let base_url = process.env.BASE ?? `${req.protocol}://${req.headers.host}`
     app.locals.base_url = base_url;
     next();
 });
