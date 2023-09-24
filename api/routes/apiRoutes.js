@@ -10,6 +10,10 @@ const endpoint = "/";
  * Routes para Usuario.
  */
 
+apiRouter.post(endpoint + "login", (req, res) => {
+    console.log(req.body);
+});
+
 apiRouter.post(endpoint + "usuarios", UsuarioController.createUser);
 apiRouter.get(endpoint + "usuarios/:id", UsuarioController.getUserById);
 apiRouter.get(endpoint + "usuarios", UsuarioController.getAllUsers);

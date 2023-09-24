@@ -22,7 +22,8 @@ app.locals.base_url = '';
 
 // Middleware para capturar o host global
 app.use((req, res, next) => {
-    app.locals.base_url = `${req.protocol}://${req.headers.host}`;
+  let base_url = process.env.BASE || `${req.protocol}://${req.headers.host}`
+    app.locals.base_url = base_url;
     next();
 });
 
@@ -36,3 +37,6 @@ app.listen(port, () => {
 
 app.use ('/api', apiRouter)
 app.use ('/app', appRouter)
+app.get('/', (req, res) => {
+  res.redirect('/app');
+});
