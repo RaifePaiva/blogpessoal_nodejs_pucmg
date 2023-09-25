@@ -1,7 +1,8 @@
 const knex = require("knex")(require("../../knexfile").development);
 
 exports.createPost = async (req, resp) =>{
-    const {titulo, conteudo, fk_usuario} = req.body
+    const {titulo, conteudo} = req.body
+    const fk_usuario = req.token.id
     try{
         const post = await knex("posts")
             .insert({titulo, conteudo, fk_usuario})

@@ -18,6 +18,7 @@ apiRouter.post(endpoint + "login", (req, res) => {
 apiRouter.post(endpoint + "usuarios", UsuarioController.createUser);
 apiRouter.get(endpoint + "usuarios/:id", UsuarioController.getUserById);
 apiRouter.get(endpoint + "usuarios", UsuarioController.getAllUsers);
+apiRouter.delete(endpoint + "usuarios/:id", UsuarioController.deleteUsuario);
 
 /**
  * Routes para Posts.

@@ -54,3 +54,24 @@ exports.getAllUsers = async (req, resp) => {
         });
     }
 }
+
+exports.deleteUsuario = async (req, resp) =>{
+    try{
+        const usuarios = await knex
+            .select("*")
+            .from("usuarios")
+            .where("id", req.params.id)
+            .first();
+
+        if(!usuarios){
+            resp.status(404).json({ message: "Usuario não encontrado." });
+            return        
+        }
+        await knex("usuarios").where("id", req.params.id).del();
+        resp.status(204).send();
+    } catch (err) {
+        resp.status(500).json({
+          message: "Erro ao deletar post - " + err.message,
+        });
+    }
+}
