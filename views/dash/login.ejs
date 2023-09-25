@@ -1,0 +1,104 @@
+<%- include('../include/header') %>
+
+  <section class="w3l-products py-5" id="projects">
+    <div class="container py-lg-3">
+      <div class="header-section text-center mb-5">
+        <h3>Painel Administrativo</h3>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 mx-auto">
+          <!--Horizontal Tab-->
+          <div id="parentHorizontalTab">
+            <div style="display: flex;align-items: center;justify-content: center;">
+              <ul class="resp-tabs-list hor_1">
+                <li style="width: auto;">Entrar</li>
+                <li style="width: auto;">Registrar</li>
+                <div class="clear"></div>
+              </ul>
+            </div>
+            <div class="resp-tabs-container hor_1">
+              <div class="products-content">
+                <div class="row" style="justify-content: center;align-items: center;">
+                  <a href="#blog-single.html" class="col-lg-4 bg-color-three mt-lg-0 mt-0">
+                    <div class="blog-article-post d-flex flex-wrap align-content-between">
+                      <form method="POST" action="/api/login">
+                        <div class="post-content">
+                          <h4 class="blog_post_title my-2">Login</h4><br>
+                          <label for="username">Nome de Usuário:</label>
+                          <input type="text" name="username" id="username" required><br>
+                          <label for="password">Senha:</label><br>
+                          <input type="password" name="password" id="password" required><br>
+                          <!-- <h6 class="sub-title">Mar 16, 2021</h6>
+                          <img src="assets/images/img10.jpg" alt=" " class="img-fluid">
+                          <ul class="author-date mb-3 d-flex align-items-center">
+                            <li>by <b>Gwen Johnson</b></li>
+                          </ul>
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit....</p> -->
+                        </div>
+
+                        <div class="read-button mt-5"><button type="submit">Entrar<span
+                            class="fa fa-long-arrow-right" aria-hidden="true"></span></button></div>
+                      </form>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="products-content">
+                <div class="row">
+                  <a href="#blog-single.html" class="col-lg-4 bg-color-three mt-lg-0 mt-0">
+                    <div class="blog-article-post d-flex flex-wrap align-content-between">
+                      <div class="post-content">
+                        <h6 class="sub-title">Apr 18, 2020</h6>
+                        <img src="assets/images/img4.jpg" alt=" " class="img-fluid">
+                        <h4 class="blog_post_title my-2">Featured Blog Post</h4>
+                        <ul class="author-date mb-3 d-flex align-items-center">
+                          <li>by <b>Marko Dugonji</b></li>
+                        </ul>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit....</p>
+                      </div>
+                      <div class="read-button mt-5">Read story <span class="fa fa-long-arrow-right"
+                          aria-hidden="true"></span></div>
+                    </div>
+                  </a>
+                  <a href="#blog-single.html" class="col-lg-4 bg-color-three mt-lg-0 mt-5">
+                    <div class="blog-article-post d-flex flex-wrap align-content-between">
+                      <div class="post-content">
+                        <h6 class="sub-title">May 11, 2020</h6>
+                        <img src="assets/images/img5.jpg" alt=" " class="img-fluid">
+                        <h4 class="blog_post_title my-2">Featured Blog Post</h4>
+                        <ul class="author-date mb-3 d-flex align-items-center">
+                          <li>by <b>Anthony</b></li>
+                        </ul>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit....</p>
+                      </div>
+                      <div class="read-button mt-5">Read story <span class="fa fa-long-arrow-right"
+                          aria-hidden="true"></span></div>
+                    </div>
+                  </a>
+                  <a href="#blog-single.html" class="col-lg-4 bg-color-three mt-lg-0 mt-5">
+                    <div class="blog-article-post d-flex flex-wrap align-content-between">
+                      <div class="post-content">
+                        <h6 class="sub-title">Jun 24, 2020</h6>
+                        <img src="assets/images/img6.jpg" alt=" " class="img-fluid">
+                        <h4 class="blog_post_title my-2">Featured Blog Post</h4>
+                        <ul class="author-date mb-3 d-flex align-items-center">
+                          <li>by <b>Emma Stone</b></li>
+                        </ul>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit....</p>
+                      </div>
+                      <div class="read-button mt-5">Read story <span class="fa fa-long-arrow-right"
+                          aria-hidden="true"></span></div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <%- include('../include/footer') %>

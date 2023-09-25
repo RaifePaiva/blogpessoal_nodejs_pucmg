@@ -18,6 +18,13 @@ exports.createPost = async (req, resp) =>{
     }
 }
 
+exports.listPostsBlog = ()=>{
+    return knex
+    .select("posts.*", "usuarios.nome")
+    .from("posts")
+    .innerJoin('usuarios', 'posts.fk_usuario', 'usuarios.id');
+}
+
 exports.listPosts = async (req, resp) =>{
     try{
         const posts = await knex
