@@ -3,6 +3,7 @@ const express = require("express");
 const apiRouter = express.Router();
 const UsuarioController = require('../src/usuarios');
 const PostController = require('../src/posts');
+const segRouter = require('./segRouter');
 
 const endpoint = "/";
 
@@ -21,10 +22,10 @@ apiRouter.get(endpoint + "usuarios", UsuarioController.getAllUsers);
 /**
  * Routes para Posts.
  */
-apiRouter.post(endpoint + "posts", PostController.createPost);
-apiRouter.get(endpoint + "posts", PostController.listPosts);
-apiRouter.get(endpoint + "posts/:id", PostController.getPostById);
-apiRouter.get(endpoint + "posts/usuario/:id", PostController.listPostsByUsuarioID);
-apiRouter.delete(endpoint + "posts/:id", PostController.deletePost);
+apiRouter.post(endpoint + "posts", segRouter.checkToken, PostController.createPost);
+apiRouter.get(endpoint + "posts", segRouter.checkToken, PostController.listPosts);
+apiRouter.get(endpoint + "posts/:id", segRouter.checkToken, PostController.getPostById);
+apiRouter.get(endpoint + "posts/usuario/:id", segRouter.checkToken, PostController.listPostsByUsuarioID);
+apiRouter.delete(endpoint + "posts/:id", segRouter.checkToken, PostController.deletePost);
 
 module.exports = apiRouter;

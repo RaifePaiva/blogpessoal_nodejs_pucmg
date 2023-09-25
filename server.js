@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require ('path')
 const app = express ()
 const apiRouter = require('./api/routes/apiRoutes')
+const segrouter = require('./api/routes/segRouter')
 const appRouter = require('./api/routes/appRoutes')
 const bodyParser = require('body-parser');
 
@@ -36,6 +37,7 @@ app.listen(port, () => {
   });
 
 app.use ('/api', apiRouter)
+app.use ('/login', segrouter)
 app.use ('/app', appRouter)
 app.get('/', (req, res) => {
   res.redirect('/app');
