@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 const knexEnv = process.env.NODE_ENV || 'development'
-const knexConfig = require('../knexfile')[knexEnv]
+const knexConfig = require('../../knexfile')[knexEnv]
 const knex = require('knex')(knexConfig)
 
 apiSeg.post('/login', (req, res) => {
@@ -16,7 +16,7 @@ apiSeg.post('/login', (req, res) => {
                 bcrypt.compare(usuarios[0].senha, senha)
                     .then (senhaOk => {
                         //Montar token JWT
-                        jwt.sign({ "login": login, "nome": usuarios[0].nome, "perfil": usuarios[0].perfil }, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+                        jwt.sign({ "login": login, "nome": usuarios[0].nome, "perfil": usuarios[0].perfil }, process.env.SECRET_KEY, { expiresIn: '1h' }, (err, token) => {
                             if (err) {
                                 res.status(500).json({ mensagem: "Erro ao gerar token" })
                             }
@@ -36,7 +36,7 @@ apiSeg.checkToken = (req, res, next) => {
     const token = authHeader && authHeader.split(' ')[1] // Bearer <token>
     if (token == null) return res.status(401).json({ mensagem: "Token inválido" })
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, payload) => {
         if (err) 
             return res.status(403).json({ mensagem: "Token inválido" })
 
