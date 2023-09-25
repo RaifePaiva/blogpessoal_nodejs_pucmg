@@ -16,7 +16,7 @@ apiSeg.post('/login', (req, res) => {
                 bcrypt.compare(usuarios[0].senha, senha)
                     .then (senhaOk => {
                         //Montar token JWT
-                        jwt.sign({ "login": login, "nome": usuarios[0].nome, "perfil": usuarios[0].perfil }, process.env.SECRET_KEY, { expiresIn: '1h' }, (err, token) => {
+                        jwt.sign({ "login": login, "nome": usuarios[0].nome, "id":usuarios[0].id, "perfil": usuarios[0].perfil }, process.env.SECRET_KEY, { expiresIn: '1h' }, (err, token) => {
                             if (err) {
                                 res.status(500).json({ mensagem: "Erro ao gerar token" })
                             }
