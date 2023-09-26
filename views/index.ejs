@@ -134,8 +134,13 @@
   <section class="w3l-blog">
     <div class="text-element-9">
       <div class="row no-gutters">
-        <% posts.forEach((post)=> { %>
-          <a href="#" class="col-lg-6 blog-article-posts bg-color-one">
+        <% if(posts.lenght == 0){ %>
+          <div style="display: flex; align-items: center; justify-content: center;">
+            <h4>Nenhum post por aqui...</h4>
+          </div>
+          <% } %>
+        <% posts.forEach((post,i)=> { %>
+          <a href="#" class="col-lg-6 blog-article-posts <% if(i%2 == 0){ %>bg-color-one <% }else{ %>bg-color-three<% } %>">
             <div class="blog-post d-flex flex-wrap align-content-between">
               <div class="post-content w-100">
                 <ul class="author-date mb-4 d-flex align-items-center">
