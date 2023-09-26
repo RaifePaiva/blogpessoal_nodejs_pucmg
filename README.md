@@ -36,3 +36,8 @@ knex migrate:make nome-migration
 2. Commit migration:
 ```shell
 knex migrate:up
+
+Após rodar o projeto e abrir no navegador efetuar login com o usuário abaixo:
+
+- Login: "rommel.teste@pucminas.com"
+- Senha: "Teste@123"
