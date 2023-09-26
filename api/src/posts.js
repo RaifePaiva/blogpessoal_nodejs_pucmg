@@ -19,6 +19,27 @@ exports.createPost = async (req, resp) =>{
     }
 }
 
+exports.updatePost = async (req, resp) => {
+    const postId = req.params.id;
+    const { titulo, conteudo } = req.body;
+
+    try {
+        const updatedPost = await knex("posts")
+            .where({ id: postId })
+            .update({ titulo, conteudo })
+            .returning('*');
+
+        if (updatedPost.length === 0) {
+            resp.status(404).json({ message: "Post não encontrado" });
+        } else {
+            resp.status(200).json(updatedPost[0]);
+        }
+    } catch (error) {
+        console.error(error);
+        resp.status(500).json({ message: "Falha ao atualizar o post." });
+    }
+};
+
 exports.listPostsBlog = ()=>{
     return knex
     .select("posts.*", "usuarios.nome")
