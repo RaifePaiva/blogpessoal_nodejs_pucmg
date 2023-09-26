@@ -7,29 +7,38 @@ const knexEnv = process.env.NODE_ENV || 'development'
 const knexConfig = require('../../knexfile')[knexEnv]
 const knex = require('knex')(knexConfig)
 
-apiSeg.post('/login', (req, res) => {
+apiSeg.post('/login', async (req, res) => {
     const { login, senha } = req.body;
-    knex("usuarios")
-        .where({login})
-        .then (usuarios => {
-            if (usuarios.length) {
-                bcrypt.compare(usuarios[0].senha, senha)
-                    .then (senhaOk => {
-                        //Montar token JWT
-                        jwt.sign({ "login": login, "nome": usuarios[0].nome, "id":usuarios[0].id, "perfil": usuarios[0].perfil }, process.env.SECRET_KEY, { expiresIn: '1h' }, (err, token) => {
-                            if (err) {
-                                res.status(500).json({ mensagem: "Erro ao gerar token" })
-                            }
-                            
-                            res.status(200).json({ token })
-                        })
-                    })
+    try {
+        if (!login || !senha) {
+            return res.status(401).json({ mensagem: "Existem campos obrigatórios não preenchidos." });
+        }
+        
+        const usuarios = await knex("usuarios").where({ login });
+        
+        if (usuarios.length === 0) {
+            return res.status(401).json({ mensagem: "Usuário ou senha inválidos" });
+        }
+        
+        const senhaOk = await bcrypt.compare(senha, usuarios[0].senha);
+
+        if (!senhaOk) {
+            return res.status(401).json({ mensagem: "Usuário ou senha inválidos" });
+        }
+        
+        // Montar token JWT
+        jwt.sign({ "login": login, "nome": usuarios[0].nome, "id": usuarios[0].id, "perfil": usuarios[0].perfil }, process.env.SECRET_KEY, { expiresIn: '1h' }, (err, token) => {
+            if (err) {
+                return res.status(500).json({ mensagem: "Erro ao gerar token" });
             }
-            else {
-                res.status(401).json({ mensagem: "Usuário ou senha inválidos" })
-            }
-        })
-})
+            
+            res.status(200).json({ token });
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ mensagem: "Erro ao efetuar login" });
+    }
+});
 
 apiSeg.checkToken = (req, res, next) => {
     const authHeader = req.headers['authorization']
