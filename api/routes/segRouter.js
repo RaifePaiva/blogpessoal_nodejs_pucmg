@@ -8,6 +8,7 @@ const knexConfig = require('../../knexfile')[knexEnv]
 const knex = require('knex')(knexConfig)
 
 apiSeg.post('/login', (req, res) => {
+    console.log(req.body);
     const { login, senha } = req.body;
     knex("usuarios")
         .where({login})

@@ -18,10 +18,11 @@
             </div>
             <div class="resp-tabs-container hor_1">
               <div class="products-content">
-                <div class="row" style="justify-content: center;align-items: center;">
+                <div class="row"
+                  style="justify-content: center;align-items: center; flex-wrap: wrap; flex-direction: column;">
                   <a href="#blog-single.html" class="col-lg-4 bg-color-three mt-lg-0 mt-0">
                     <div class="blog-article-post d-flex flex-wrap align-content-between">
-                      <form method="POST" action="/api/post">
+                      <form method="POST" id="criar-post" action="/api/posts">
                         <div class="post-content">
                           <h4 class="blog_post_title my-2">Criar Post</h4><br>
                           <label for="titulo">Titulo:</label>
@@ -32,42 +33,49 @@
                         </div>
 
                         <div class="read-button mt-5"><button type="submit">Criar Post<span
-                            class="fa fa-long-arrow-right" aria-hidden="true"></span></button></div>
+                              class="fa fa-long-arrow-right" aria-hidden="true"></span></button></div>
                       </form>
                     </div>
-                    <div>
-                      <% if(posts.lenght == 0){ %>
+                  </a>
+                  <div>
+                    <table class="text-white mt-5" style="width: 1000px;">
+                      <tr>
+                        <th>ID</th>
+                        <th>TITULO</th>
+                        <th>CONTEUDO</th>
+                        <th colspan="2" class="text-center">AÇÕES</th>
+                      </tr>
+                      <% if(posts.lenght==0){ %>
                         <div style="display: flex; align-items: center; justify-content: center;">
                           <h4>Nenhum post por aqui...</h4>
                         </div>
                         <% } %>
-                      <% posts.forEach((post)=> { %>
-                        <a href="#" class="col-lg-6 blog-article-posts bg-color-one">
-                          <div class="blog-post d-flex flex-wrap align-content-between">
-                            <div class="post-content w-100">
-                              <ul class="author-date mb-4 d-flex align-items-center">
-                                <li>by <b>
-                                    <%= post.nome %>
-                                  </b></li>
-                                <li><span class="fa fa-clock-o" aria-hidden="true"></span>
-                                  <%= post.data_criacao %>
-                                </li>
-                              </ul>
-                              <h4 class="blog_post_title mb-4">
+                          <% posts.forEach((post)=> { %>
+                            <tr>
+                              <td>
+                                <%= post.id %>
+                              </td>
+                              <td>
                                 <%= post.titulo %>
-                              </h4><br>
-                              <p class="sub-para">
+                              </td>
+                              <td>
                                 <%= post.conteudo %>
-                              </p>
-                            </div>
-                            <div class="read-button mt-5">Ler Mais <span class="fa fa-long-arrow-right" aria-hidden="true"></span>
-                            </div>
-                          </div>
-                        </a>
-              
-                        <% }); %>
-                    </div>
-                  </a>
+                              </td>
+                              <td class="text-center">
+                                <div class="read-button bt-delete" data-id="<%= post.id %>"><span class="fa fa-trash" data-id="<%= post.id %>"
+                                    aria-hidden="true"></span>
+                              </td>
+                              <td class="text-center">
+                                <div class="read-button bt-edit" data-id="<%= post.id %>"><span class="fa fa-edit" data-id="<%= post.id %>"
+                                    aria-hidden="true"></span>
+                              </td>
+                            </tr>
+
+                            <% }); %>
+                    </table>
+
+
+                  </div>
                 </div>
               </div>
             </div>
@@ -80,3 +88,58 @@
 
 
   <%- include('../include/footer') %>
+    <script>
+      const form = document.querySelector('#criar-post');
+      const btDelete = document.querySelector('.bt-delete');
+      const btEdit = document.querySelector('.bt-edit');
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const dataObjeto = {};
+        formData.forEach((valor, chave) => {
+          dataObjeto[chave] = valor;
+        });
+        const jsonData = JSON.stringify(dataObjeto);
+        const url = form.action;
+        const headers = {
+          'Authorization': 'Bearer ' + localStorage.getItem('chave'),
+          'Content-Type': 'application/json'
+        };
+        fetch(url, {
+          method: 'POST',
+          body: jsonData,
+          headers: headers,
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.error('Erro:', error);
+          });
+      });
+
+      btDelete.addEventListener('click', function (event) {
+        event.preventDefault();
+            const dataPost = event.target;
+            let idPost = dataPost.getAttribute('data-id');
+            
+            console.log(dataPost.getAttribute('data-id'));
+        const headers = {
+          'Authorization': 'Bearer ' + localStorage.getItem('chave'),
+          'Content-Type': 'application/json'
+        };
+        fetch('/api/posts/'+idPost, {
+          method: 'DELETE',
+          headers: headers,
+        })
+          .then(response => response.text())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.error('Erro:', error);
+          });
+      });
+
+    </script>
