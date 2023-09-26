@@ -24,7 +24,6 @@ appRouter.get(endpoint, (req, res) => {
             menu: "home",
             posts: posts,
         });
-        console.log(postsBlog);
     });
 });
 
@@ -37,5 +36,22 @@ appRouter.get(endpoint + "about", (req, res) => {
 appRouter.get(endpoint + "login", (req, res) => {
   res.render("dash/login", { titulo: "Sobre Nós", menu: "about" });
 });
+
+// Rota para a página "Login"
+appRouter.get(endpoint + "dashboard", (req, res) => {
+        PostController
+        .listPostsBlog()
+        .then((posts) => {
+            let postsBlog = [];
+            posts.map((post,i) => {
+                post.data_criacao = moment(post.data_criacao).format('DD/MM/YYYY HH:mm:ss');
+                postsBlog[i] = post;
+            });
+            res.render("dash/dashboard", {
+                titulo: "Blog",
+                menu: "home",
+                posts: posts,
+            }); });
+  });
 
 module.exports = appRouter;

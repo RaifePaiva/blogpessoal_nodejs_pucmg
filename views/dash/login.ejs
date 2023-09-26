@@ -21,13 +21,13 @@
                 <div class="row" style="justify-content: center;align-items: center;">
                   <a href="#blog-single.html" class="col-lg-4 bg-color-three mt-lg-0 mt-0">
                     <div class="blog-article-post d-flex flex-wrap align-content-between">
-                      <form method="POST" action="/api/login">
+                      <form method="POST" id="login" action="/secure/login">
                         <div class="post-content">
                           <h4 class="blog_post_title my-2">Login</h4><br>
-                          <label for="username">Nome de Usuário:</label>
-                          <input type="text" name="username" id="username" required><br>
-                          <label for="password">Senha:</label><br>
-                          <input type="password" name="password" id="password" required><br>
+                          <label for="login">Nome de Usuário:</label>
+                          <input type="text" name="login" id="login" required><br>
+                          <label for="senha">Senha:</label><br>
+                          <input type="password" name="senha" id="senha" required><br>
                           <!-- <h6 class="sub-title">Mar 16, 2021</h6>
                           <img src="assets/images/img10.jpg" alt=" " class="img-fluid">
                           <ul class="author-date mb-3 d-flex align-items-center">
@@ -36,8 +36,8 @@
                           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit....</p> -->
                         </div>
 
-                        <div class="read-button mt-5"><button type="submit">Entrar<span
-                            class="fa fa-long-arrow-right" aria-hidden="true"></span></button></div>
+                        <div class="read-button mt-5"><button type="submit">Entrar<span class="fa fa-long-arrow-right"
+                              aria-hidden="true"></span></button></div>
                       </form>
                     </div>
                   </a>
@@ -102,3 +102,35 @@
 
 
   <%- include('../include/footer') %>
+    <script>
+      const form = document.querySelector('#login');
+      form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Evitar que o formulário seja submetido normalmente
+
+        const formData = new FormData(event.target);
+        // Converte o objeto em um objeto JavaScript
+        const dataObjeto = {};
+        formData.forEach((valor, chave) => {
+          dataObjeto[chave] = valor;
+        });
+
+        // Converte o objeto JavaScript em uma string JSON
+        const jsonData = JSON.stringify(dataObjeto);
+        const url = form.action;
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: jsonData,
+        })
+          .then(response => response.json())
+          .then(data => {
+            localStorage.setItem('chave', data.token);
+            window.location.href = '/app/dashboard';
+          })
+          .catch(error => {
+            console.error('Erro:', error);
+          });
+      });
+    </script>

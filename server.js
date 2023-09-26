@@ -37,7 +37,7 @@ app.listen(port, () => {
   });
 
 app.use ('/api', apiRouter)
-app.use ('/login', segrouter)
+app.use ('/secure', segrouter)
 app.use ('/app', appRouter)
 app.get('/', (req, res) => {
   res.redirect('/app');
