@@ -3,9 +3,7 @@ const apiSeg = express.Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
-const knexEnv = process.env.NODE_ENV || 'development'
-const knexConfig = require('../../knexfile')[knexEnv]
-const knex = require('knex')(knexConfig)
+const knex = require("knex")(require("../../knexfile").development);
 
 apiSeg.post('/login', async (req, res) => {
     const { login, senha } = req.body;
