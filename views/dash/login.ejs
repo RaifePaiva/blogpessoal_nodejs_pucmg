@@ -126,6 +126,10 @@
         })
           .then(response => response.json())
           .then(data => {
+            console.log(data);
+            if (!data.token) {
+              return;
+            }
             localStorage.setItem('chave', data.token);
             window.location.href = '/app/dashboard';
           })

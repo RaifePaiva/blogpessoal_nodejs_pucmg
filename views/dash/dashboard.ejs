@@ -1,5 +1,5 @@
 <%- include('../include/header') %>
-
+<%= token %>
   <section class="w3l-products py-5" id="projects">
     <div class="container py-lg-3">
       <div class="header-section text-center mb-5">
@@ -25,6 +25,7 @@
                       <form method="POST" id="criar-post" action="/api/posts">
                         <div class="post-content">
                           <h4 class="blog_post_title my-2">Criar Post</h4><br>
+                          <input type="hidden" name="id" id="id">
                           <label for="titulo">Titulo:</label>
                           <input type="text" name="titulo" id="titulo" required><br>
                           <label for="conteudo">Conteudo:</label><br>
@@ -32,7 +33,7 @@
                             </textarea>
                         </div>
 
-                        <div class="read-button mt-5"><button type="submit">Criar Post<span
+                        <div class="read-button mt-5"><button id="btn-form" type="submit">Criar Post<span
                               class="fa fa-long-arrow-right" aria-hidden="true"></span></button></div>
                       </form>
                     </div>
@@ -62,12 +63,13 @@
                                 <%= post.conteudo %>
                               </td>
                               <td class="text-center">
-                                <div class="read-button bt-delete" data-id="<%= post.id %>"><span class="fa fa-trash" data-id="<%= post.id %>"
-                                    aria-hidden="true"></span>
+                                <div class="read-button bt-delete" data-id="<%= post.id %>"><span class="fa fa-trash"
+                                    data-id="<%= post.id %>" aria-hidden="true"></span>
                               </td>
                               <td class="text-center">
-                                <div class="read-button bt-edit" data-id="<%= post.id %>"><span class="fa fa-edit" data-id="<%= post.id %>"
-                                    aria-hidden="true"></span>
+                                <div class="read-button bt-edit" data-id="<%= post.id %>"><span class="fa fa-edit"
+                                    data-id="<%= post.id %>" data-titulo="<%= post.titulo %>"
+                                    data-conteudo="<%= post.conteudo %>" aria-hidden="true"></span>
                               </td>
                             </tr>
 
@@ -90,8 +92,14 @@
   <%- include('../include/footer') %>
     <script>
       const form = document.querySelector('#criar-post');
-      const btDelete = document.querySelector('.bt-delete');
-      const btEdit = document.querySelector('.bt-edit');
+      const btDeletes = document.querySelectorAll('.bt-delete');
+      const btEdits = document.querySelectorAll('.bt-edit');
+
+      const headers = {
+        'Authorization': 'Bearer ' + localStorage.getItem('chave'),
+        'Content-Type': 'application/json'
+      };
+
       form.addEventListener('submit', function (event) {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -105,41 +113,78 @@
           'Authorization': 'Bearer ' + localStorage.getItem('chave'),
           'Content-Type': 'application/json'
         };
-        fetch(url, {
-          method: 'POST',
-          body: jsonData,
-          headers: headers,
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
+        const id = document.querySelector('#id').value;
+        if (id) {
+          fetch(url + "/" + id, {
+            method: 'PUT',
+            body: jsonData,
+            headers: headers,
           })
-          .catch(error => {
-            console.error('Erro:', error);
-          });
+            .then(response => response.text())
+            .then(data => {
+              console.log(data);
+              window.location.href = '/app/dashboard';
+            })
+            .catch(error => {
+              console.error('Erro:', error);
+            });
+        } else {
+          fetch(url, {
+            method: 'POST',
+            body: jsonData,
+            headers: headers,
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              window.location.href = '/app/dashboard';
+            })
+            .catch(error => {
+              console.error('Erro:', error);
+            });
+
+        }
+
       });
 
-      btDelete.addEventListener('click', function (event) {
-        event.preventDefault();
-            const dataPost = event.target;
-            let idPost = dataPost.getAttribute('data-id');
-            
-            console.log(dataPost.getAttribute('data-id'));
-        const headers = {
-          'Authorization': 'Bearer ' + localStorage.getItem('chave'),
-          'Content-Type': 'application/json'
-        };
-        fetch('/api/posts/'+idPost, {
-          method: 'DELETE',
-          headers: headers,
-        })
-          .then(response => response.text())
-          .then(data => {
-            console.log(data);
+      btDeletes.forEach(function (btDelete) {
+        btDelete.addEventListener('click', function (event) {
+          console.log("CLICOU");
+          event.preventDefault();
+          const dataPost = event.target;
+          let idPost = dataPost.getAttribute('data-id');
+
+          console.log(dataPost.getAttribute('data-id'));
+          const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('chave'),
+            'Content-Type': 'application/json'
+          };
+          fetch('/api/posts/' + idPost, {
+            method: 'DELETE',
+            headers: headers,
           })
-          .catch(error => {
-            console.error('Erro:', error);
-          });
+            .then(response => response.text())
+            .then(data => {
+              console.log(data);
+              window.location.href = '/app/dashboard';
+            })
+            .catch(error => {
+              console.error('Erro:', error);
+            });
+        });
+      });
+
+      btEdits.forEach(function (btEdit) {
+        btEdit.addEventListener('click', function (event) {
+          event.preventDefault();
+          const dataPost = event.target;
+          document.querySelector('.blog_post_title').innerHTML = "Editar Post";
+          document.querySelector('#titulo').value = dataPost.getAttribute('data-titulo');
+          document.querySelector('#conteudo').value = dataPost.getAttribute('data-conteudo');
+          document.querySelector('#id').value = dataPost.getAttribute('data-id');
+          document.querySelector('#btn-form').innerHTML = "Editar Post";
+          let idPost = dataPost.getAttribute('data-id');
+        });
       });
 
     </script>

@@ -23,11 +23,11 @@ apiRouter.delete(endpoint + "usuarios/:id", UsuarioController.deleteUsuario);
 /**
  * Routes para Posts.
  */
-apiRouter.post(endpoint + "posts", PostController.createPost);
-apiRouter.put(endpoint + "posts/:id", PostController.updatePost);
-apiRouter.get(endpoint + "posts", PostController.listPosts);
-apiRouter.get(endpoint + "posts/:id", PostController.getPostById);
-apiRouter.get(endpoint + "posts/usuario/:id", PostController.listPostsByUsuarioID);
-apiRouter.delete(endpoint + "posts/:id", PostController.deletePost);
+apiRouter.post(endpoint + "posts", segRouter.checkToken, PostController.createPost);
+apiRouter.put(endpoint + "posts/:id", segRouter.checkToken, PostController.updatePost);
+apiRouter.get(endpoint + "posts", segRouter.checkToken, PostController.listPosts);
+apiRouter.get(endpoint + "posts/:id", segRouter.checkToken, PostController.getPostById);
+apiRouter.get(endpoint + "posts/usuario/:id", segRouter.checkToken, PostController.listPostsByUsuarioID);
+apiRouter.delete(endpoint + "posts/:id", segRouter.checkToken, PostController.deletePost);
 
 module.exports = apiRouter;

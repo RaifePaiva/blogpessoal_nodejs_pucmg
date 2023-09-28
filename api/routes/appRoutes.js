@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const appRouter = express.Router();
-const UsuarioController = require("../src/usuarios");
+const segRouter = require("./segRouter");
 const PostController = require("../src/posts");
 const moment = require('moment');
 const endpoint = "/";
@@ -38,10 +38,11 @@ appRouter.get(endpoint + "login", (req, res) => {
 });
 
 // Rota para a página "Login"
-appRouter.get(endpoint + "dashboard", (req, res) => {
+appRouter.get(endpoint + "dashboard",(req, res) => {
         PostController
         .listPostsBlog()
         .then((posts) => {
+            segRouter.checkToken;
             let postsBlog = [];
             posts.map((post,i) => {
                 post.data_criacao = moment(post.data_criacao).format('DD/MM/YYYY HH:mm:ss');
@@ -51,6 +52,7 @@ appRouter.get(endpoint + "dashboard", (req, res) => {
                 titulo: "Blog",
                 menu: "home",
                 posts: posts,
+                token: ""
             }); });
   });
 
