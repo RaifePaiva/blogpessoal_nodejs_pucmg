@@ -13,10 +13,10 @@ const endpoint = "/";
 
 apiRouter.post(endpoint + "login", segRouter.login);
 
-apiRouter.post(endpoint + "usuarios", UsuarioController.createUser);
-apiRouter.get(endpoint + "usuarios/:id", UsuarioController.getUserById);
-apiRouter.get(endpoint + "usuarios", UsuarioController.getAllUsers);
-apiRouter.delete(endpoint + "usuarios/:id", UsuarioController.deleteUsuario);
+apiRouter.post(endpoint + "usuarios", segRouter.checkToken, UsuarioController.createUser);
+apiRouter.get(endpoint + "usuarios/:id", segRouter.checkToken, UsuarioController.getUserById);
+apiRouter.get(endpoint + "usuarios", segRouter.checkToken, UsuarioController.getAllUsers);
+apiRouter.delete(endpoint + "usuarios/:id", segRouter.checkToken, UsuarioController.deleteUsuario);
 
 /**
  * Routes para Posts.

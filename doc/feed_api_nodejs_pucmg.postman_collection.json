@@ -1,17 +1,27 @@
 {
 	"info": {
-		"_postman_id": "ef771239-bfb1-4bf4-8820-d76721000888",
+		"_postman_id": "87169f85-4e64-430e-94cc-13c9412fffde",
 		"name": "feed_api_nodejs_pucmg",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "8873571"
+		"_exporter_id": "20115631"
 	},
 	"item": [
 		{
 			"name": "usuario",
 			"item": [
 				{
-					"name": "Salvar usuario",
+					"name": "Criar usuario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -24,12 +34,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/usuarios",
-							"protocol": "http",
+							"raw": "{{url}}/api/usuarios",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"usuarios"
@@ -44,6 +52,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -56,12 +74,227 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/usuarios/6",
-							"protocol": "http",
+							"raw": "{{url}}/api/usuarios/7",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
+							"path": [
+								"api",
+								"usuarios",
+								"7"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Listar usuario por id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"login\": \"diego.teste@gmail.com\",\r\n    \"nome\": \"Diego\",\r\n    \"senha\": \"12345\",\r\n    \"perfil\": \"USUARIO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/usuarios/7",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"usuarios",
+										"7"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "222"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"de-7IEYgwXRE5dsjhMyroEkOdHiTqQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 19 Nov 2023 17:35:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 7,\n        \"login\": \"rommel.teste@pucminas.com\",\n        \"nome\": \"Rommel\",\n        \"perfil\": \"USUARIO\",\n        \"links\": [\n            {\n                \"rel\": \"self\",\n                \"href\": \"http://localhost:3000/api/usuarios/7\"\n            },\n            {\n                \"rel\": \"usuarios\",\n                \"href\": \"http://localhost:3000/api/usuarios\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar usuarios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/usuarios?limit=10&page=1&orderBy=id&order=desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usuarios"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "id"
+								},
+								{
+									"key": "order",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Listar usuarios",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/usuarios?limit=10&page=1&orderBy=id&order=desc",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"usuarios"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "orderBy",
+											"value": "id"
+										},
+										{
+											"key": "order",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "401"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"191-/K5OeFtyMhXDFUNj7HyzXG+XqGQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 19 Nov 2023 17:33:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 7,\n            \"login\": \"rommel.teste@pucminas.com\",\n            \"nome\": \"Rommel\",\n            \"perfil\": \"USUARIO\",\n            \"links\": [\n                {\n                    \"rel\": \"self\",\n                    \"href\": \"http://localhost:3000/api/usuarios/7\"\n                }\n            ]\n        },\n        {\n            \"id\": 5,\n            \"login\": \"diego.teste@gmail.com\",\n            \"nome\": \"Diego\",\n            \"perfil\": \"USUARIO\",\n            \"links\": [\n                {\n                    \"rel\": \"self\",\n                    \"href\": \"http://localhost:3000/api/usuarios/5\"\n                }\n            ]\n        }\n    ],\n    \"pagination\": {\n        \"perPage\": \"10\",\n        \"currentPage\": \"1\",\n        \"from\": 0,\n        \"to\": 2,\n        \"orderBy\": \"id\",\n        \"order\": \"desc\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Deletar usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/usuarios/6",
+							"host": [
+								"{{url}}"
+							],
 							"path": [
 								"api",
 								"usuarios",
@@ -72,16 +305,23 @@
 					"response": []
 				},
 				{
-					"name": "Listar usuarios",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "Atualizar usuario",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"diego.teste@gmail.com\",\r\n    \"nome\": \"Diego\",\r\n    \"senha\": \"12345\",\r\n    \"perfil\": \"USUARIO\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Diego\",\r\n    \"senha\": \"12345\",\r\n    \"perfil\": \"USUARIO\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -89,15 +329,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/usuarios",
-							"protocol": "http",
+							"raw": "{{url}}/api/usuarios/6",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
-								"usuarios"
+								"usuarios",
+								"6"
 							]
 						}
 					},
@@ -111,95 +350,397 @@
 				{
 					"name": "Listar posts",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/posts",
-							"protocol": "http",
+							"raw": "{{url}}/api/posts?limit=10&page=1&orderBy=titulo&order=desc",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"posts"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "titulo"
+								},
+								{
+									"key": "order",
+									"value": "desc"
+								}
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Listar posts",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/posts",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"posts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1072"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"430-HD1ZDJRzBPIm/9FZbZ1u0jNNcKY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 19 Nov 2023 01:35:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 14,\n            \"titulo\": \"Teste ttt\",\n            \"conteudo\": \"Teste boladão                            \",\n            \"data_criacao\": \"2023-09-26T02:56:14.069Z\",\n            \"links\": [\n                {\n                    \"rel\": \"self\",\n                    \"href\": \"http://localhost:3000/api/posts/14\"\n                },\n                {\n                    \"rel\": \"usuarios\",\n                    \"href\": \"http://localhost:3000/api/posts/usuarios/5\"\n                }\n            ]\n        },\n        {\n            \"id\": 15,\n            \"titulo\": \"ewhfjvwdferg\",\n            \"conteudo\": \"jhbkvh               ewfre               \",\n            \"data_criacao\": \"2023-09-26T03:02:13.995Z\",\n            \"links\": [\n                {\n                    \"rel\": \"self\",\n                    \"href\": \"http://localhost:3000/api/posts/15\"\n                },\n                {\n                    \"rel\": \"usuarios\",\n                    \"href\": \"http://localhost:3000/api/posts/usuarios/5\"\n                }\n            ]\n        },\n        {\n            \"id\": 19,\n            \"titulo\": \"werwer\",\n            \"conteudo\": \"                            werwer\",\n            \"data_criacao\": \"2023-09-28T17:32:08.050Z\",\n            \"links\": [\n                {\n                    \"rel\": \"self\",\n                    \"href\": \"http://localhost:3000/api/posts/19\"\n                },\n                {\n                    \"rel\": \"usuarios\",\n                    \"href\": \"http://localhost:3000/api/posts/usuarios/5\"\n                }\n            ]\n        },\n        {\n            \"id\": 20,\n            \"titulo\": \"Teste do Diego\",\n            \"conteudo\": \"Maior teste do mundo            \",\n            \"data_criacao\": \"2023-10-09T20:43:14.220Z\",\n            \"links\": [\n                {\n                    \"rel\": \"self\",\n                    \"href\": \"http://localhost:3000/api/posts/20\"\n                },\n                {\n                    \"rel\": \"usuarios\",\n                    \"href\": \"http://localhost:3000/api/posts/usuarios/5\"\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Listar post por id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/posts/2",
-							"protocol": "http",
+							"raw": "{{url}}/api/posts/20",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"posts",
-								"2"
+								"20"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Listar post por id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/posts/20",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"posts",
+										"20"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "258"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"102-U14Yf56Zr2FbqYs06nz7Ia9tnDg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 19 Nov 2023 13:34:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 20,\n        \"titulo\": \"Teste do Diego\",\n        \"conteudo\": \"Maior teste do mundo            \",\n        \"data_criacao\": \"2023-10-09T20:43:14.220Z\",\n        \"links\": [\n            {\n                \"rel\": \"self\",\n                \"href\": \"http://localhost:3000/api/posts/20\"\n            },\n            {\n                \"rel\": \"posts\",\n                \"href\": \"http://localhost:3000/api/posts\"\n            }\n        ]\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Listar posts por usuario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/posts/usuario/1",
-							"protocol": "http",
+							"raw": "{{url}}/api/posts/usuarios/5",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"posts",
-								"usuario",
-								"1"
+								"usuarios",
+								"5"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"disabled": true
+								}
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Listar posts por usuario",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/posts/usuarios/5",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"posts",
+										"usuarios",
+										"5"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1308"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"51c-voLb3o2So1Or6lImaW7v09Mqxb8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 19 Nov 2023 14:17:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 14,\n            \"titulo\": \"Teste ttt\",\n            \"conteudo\": \"Teste boladão                            \",\n            \"data_criacao\": \"2023-09-26T02:56:14.069Z\",\n            \"links\": [\n                {\n                    \"rel\": \"self\",\n                    \"href\": \"http://localhost:3000/api/posts/usuarios/5\"\n                },\n                {\n                    \"rel\": \"posts\",\n                    \"href\": \"http://localhost:3000/api/posts\"\n                },\n                {\n                    \"rel\": \"postsPorId\",\n                    \"href\": \"http://localhost:3000/api/posts/14\"\n                }\n            ]\n        },\n        {\n            \"id\": 15,\n            \"titulo\": \"ewhfjvwdferg\",\n            \"conteudo\": \"jhbkvh               ewfre               \",\n            \"data_criacao\": \"2023-09-26T03:02:13.995Z\",\n            \"links\": [\n                {\n                    \"rel\": \"self\",\n                    \"href\": \"http://localhost:3000/api/posts/usuarios/5\"\n                },\n                {\n                    \"rel\": \"posts\",\n                    \"href\": \"http://localhost:3000/api/posts\"\n                },\n                {\n                    \"rel\": \"postsPorId\",\n                    \"href\": \"http://localhost:3000/api/posts/15\"\n                }\n            ]\n        },\n        {\n            \"id\": 19,\n            \"titulo\": \"werwer\",\n            \"conteudo\": \"                            werwer\",\n            \"data_criacao\": \"2023-09-28T17:32:08.050Z\",\n            \"links\": [\n                {\n                    \"rel\": \"self\",\n                    \"href\": \"http://localhost:3000/api/posts/usuarios/5\"\n                },\n                {\n                    \"rel\": \"posts\",\n                    \"href\": \"http://localhost:3000/api/posts\"\n                },\n                {\n                    \"rel\": \"postsPorId\",\n                    \"href\": \"http://localhost:3000/api/posts/19\"\n                }\n            ]\n        },\n        {\n            \"id\": 20,\n            \"titulo\": \"Teste do Diego\",\n            \"conteudo\": \"Maior teste do mundo            \",\n            \"data_criacao\": \"2023-10-09T20:43:14.220Z\",\n            \"links\": [\n                {\n                    \"rel\": \"self\",\n                    \"href\": \"http://localhost:3000/api/posts/usuarios/5\"\n                },\n                {\n                    \"rel\": \"posts\",\n                    \"href\": \"http://localhost:3000/api/posts\"\n                },\n                {\n                    \"rel\": \"postsPorId\",\n                    \"href\": \"http://localhost:3000/api/posts/20\"\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
-					"name": "Listar posts por usuario Copy",
+					"name": "Deletar post",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/posts/3",
-							"protocol": "http",
+							"raw": "{{url}}/api/posts/14",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"posts",
-								"3"
+								"14"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Deletar post",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/posts/14",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"posts",
+										"14"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 19 Nov 2023 14:28:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
-					"name": "Salvar post",
+					"name": "Atualizar post",
 					"request": {
-						"method": "POST",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titulo\": \"A volta dos que não foram.\",\r\n    \"conteudo\": \"Um conteúdo imaginário\",\r\n    \"fk_usuario\": 1\r\n}",
+							"raw": "{\r\n    \"titulo\": \"A volta dos que não foram.\",\r\n    \"conteudo\": \"Um conteúdo imaginário\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -207,21 +748,249 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/posts",
-							"protocol": "http",
+							"raw": "{{url}}/api/posts/15",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
+							"path": [
+								"api",
+								"posts",
+								"15"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Atualizar post",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"titulo\": \"A volta dos que não foram.\",\r\n    \"conteudo\": \"Um conteúdo imaginário\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/posts/15",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"posts",
+										"15"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "143"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8f-ChItOBFL9Ij2Q9QCRjWufdwGM74\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 19 Nov 2023 14:40:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 15,\n    \"titulo\": \"A volta dos que não foram.\",\n    \"conteudo\": \"Um conteúdo imaginário\",\n    \"fk_usuario\": 5,\n    \"data_criacao\": \"2023-09-26T03:02:13.995Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Criar post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"A volta dos que não foram.\",\r\n    \"conteudo\": \"Um conteúdo imaginário\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/posts",
+							"host": [
+								"{{url}}"
+							],
 							"path": [
 								"api",
 								"posts"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Criar post",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"titulo\": \"A volta dos que não foram.\",\r\n    \"conteudo\": \"Um conteúdo imaginário\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/posts",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "143"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8f-x7jChM/gYBMLHidnJ5lGycBjF78\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 19 Nov 2023 15:15:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 24,\n    \"titulo\": \"A volta dos que não foram.\",\n    \"conteudo\": \"Um conteúdo imaginário\",\n    \"fk_usuario\": 5,\n    \"data_criacao\": \"2023-11-19T15:15:48.776Z\"\n}"
+						}
+					]
 				}
 			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"diego.teste@gmail.com\",\r\n    \"senha\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImRpZWdvLnRlc3RlQGdtYWlsLmNvbSIsIm5vbWUiOiJEaWVnbyIsImlkIjo1LCJwZXJmaWwiOiJVU1VBUklPIiwiaWF0IjoxNzAwNDExNDcwLCJleHAiOjE3MDA0MTUwNzB9.SnVc_biwurZTo-QW18iB1Dma9mUMQdwZX2xnPqUyV3M",
+			"type": "string"
 		}
 	]
 }
