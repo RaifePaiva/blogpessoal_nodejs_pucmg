@@ -55,14 +55,28 @@ exports.listPostsBlog = () => {
 
 exports.listPosts = async (req, resp) => {
   try {
-    const posts = await knex
-      .select("*")
-      .from("posts")
-      .orderBy(req.query.orderBy || "id", req.query.order || "asc")
-      .paginate({
-        perPage: req.query.limit || 1000,
-        currentPage: req.query.page || 1,
-      });
+    let posts = [];
+    if (req.query.search) {
+      posts = await knex
+        .select("*")
+        .from("posts")
+        .whereILike("titulo", "%" + req.query.search + "%")
+        .orWhereILike("conteudo", "%" + req.query.search + "%")
+        .orderBy(req.query.orderBy || "id", req.query.order || "asc")
+        .paginate({
+          perPage: req.query.limit || 1000,
+          currentPage: req.query.page || 1,
+        });
+    } else {
+      posts = await knex
+        .select("*")
+        .from("posts")
+        .orderBy(req.query.orderBy || "id", req.query.order || "asc")
+        .paginate({
+          perPage: req.query.limit || 1000,
+          currentPage: req.query.page || 1,
+        });
+    }
     let dataPost = [];
     if (posts.data.length > 0) {
       posts.data.map((post, i) => {
@@ -147,16 +161,31 @@ exports.listPostsByUsuarioID = async (req, resp) => {
       resp.status(404).json({ message: "Usuario não encontrado." });
       return;
     }
+    let posts = [];
+    if (req.query.search) {
+      posts = await knex
+        .select("*")
+        .from("posts")
+        .where("fk_usuario", req.params.id)
+        .andWhereILike("titulo", "%" + req.query.search + "%")
+        .orWhereILike("conteudo", "%" + req.query.search + "%")
+        .orderBy(req.query.orderBy || "id", req.query.order || "asc")
+        .paginate({
+          perPage: req.query.limit || 1000,
+          currentPage: req.query.page || 1,
+        });
+    } else {
+      posts = await knex
+        .select("*")
+        .from("posts")
+        .where("fk_usuario", req.params.id)
+        .orderBy(req.query.orderBy || "id", req.query.order || "asc")
+        .paginate({
+          perPage: req.query.limit || 1000,
+          currentPage: req.query.page || 1,
+        });
+    }
 
-    const posts = await knex
-      .select("*")
-      .from("posts")
-      .where("fk_usuario", req.params.id)
-      .orderBy(req.query.orderBy || "id", req.query.order || "asc")
-      .paginate({
-        perPage: req.query.limit || 1000,
-        currentPage: req.query.page || 1,
-      });
     let dataPost = [];
     posts.data.map((post, i) => {
       dataPost[i] = {
@@ -180,14 +209,14 @@ exports.listPostsByUsuarioID = async (req, resp) => {
         ],
       };
     });
-    resp.status(200).json({ 
-        data: dataPost,
+    resp.status(200).json({
+      data: dataPost,
       pagination: {
         ...posts.pagination,
         orderBy: req.query.orderBy,
         order: req.query.order,
       },
-     });
+    });
   } catch (err) {
     resp.status(500).json({
       message: "Erro ao recuperar posts - " + err.message,
