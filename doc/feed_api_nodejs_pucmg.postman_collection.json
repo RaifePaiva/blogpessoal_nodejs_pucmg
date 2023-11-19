@@ -170,7 +170,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/usuarios?limit=10&page=1&orderBy=id&order=desc",
+							"raw": "{{url}}/api/usuarios?limit=10&page=1&orderBy=id&order=desc&search=Rom",
 							"host": [
 								"{{url}}"
 							],
@@ -194,6 +194,10 @@
 								{
 									"key": "order",
 									"value": "desc"
+								},
+								{
+									"key": "search",
+									"value": "Rom"
 								}
 							]
 						}
@@ -387,6 +391,11 @@
 								{
 									"key": "order",
 									"value": "desc"
+								},
+								{
+									"key": "search",
+									"value": "w",
+									"disabled": true
 								}
 							]
 						}
@@ -553,7 +562,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/posts/usuarios/5",
+							"raw": "{{url}}/api/posts/usuarios/5?search=w",
 							"host": [
 								"{{url}}"
 							],
@@ -583,6 +592,10 @@
 									"key": "order",
 									"value": "asc",
 									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "w"
 								}
 							]
 						}
@@ -989,7 +1002,7 @@
 		},
 		{
 			"key": "token",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImRpZWdvLnRlc3RlQGdtYWlsLmNvbSIsIm5vbWUiOiJEaWVnbyIsImlkIjo1LCJwZXJmaWwiOiJVU1VBUklPIiwiaWF0IjoxNzAwNDExNDcwLCJleHAiOjE3MDA0MTUwNzB9.SnVc_biwurZTo-QW18iB1Dma9mUMQdwZX2xnPqUyV3M",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImRpZWdvLnRlc3RlQGdtYWlsLmNvbSIsIm5vbWUiOiJEaWVnbyIsImlkIjo1LCJwZXJmaWwiOiJVU1VBUklPIiwiaWF0IjoxNzAwNDE1NTUzLCJleHAiOjE3MDA0MTkxNTN9.usxkKbxfqPnF_CiIcX4czZ7NNFBYT5YNbRcv18YzjGk",
 			"type": "string"
 		}
 	]
