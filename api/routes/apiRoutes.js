@@ -11,9 +11,7 @@ const endpoint = "/";
  * Routes para Usuario.
  */
 
-apiRouter.post(endpoint + "login", (req, res) => {
-    console.log(req.body);
-});
+apiRouter.post(endpoint + "login", segRouter.login);
 
 apiRouter.post(endpoint + "usuarios", UsuarioController.createUser);
 apiRouter.get(endpoint + "usuarios/:id", UsuarioController.getUserById);
@@ -27,7 +25,7 @@ apiRouter.post(endpoint + "posts", segRouter.checkToken, PostController.createPo
 apiRouter.put(endpoint + "posts/:id", segRouter.checkToken, PostController.updatePost);
 apiRouter.get(endpoint + "posts", segRouter.checkToken, PostController.listPosts);
 apiRouter.get(endpoint + "posts/:id", segRouter.checkToken, PostController.getPostById);
-apiRouter.get(endpoint + "posts/usuario/:id", segRouter.checkToken, PostController.listPostsByUsuarioID);
+apiRouter.get(endpoint + "posts/usuarios/:id", segRouter.checkToken, PostController.listPostsByUsuarioID);
 apiRouter.delete(endpoint + "posts/:id", segRouter.checkToken, PostController.deletePost);
 
 module.exports = apiRouter;

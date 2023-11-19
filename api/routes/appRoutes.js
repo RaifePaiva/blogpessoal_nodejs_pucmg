@@ -34,11 +34,11 @@ appRouter.get(endpoint + "about", (req, res) => {
 
 // Rota para a página "Login"
 appRouter.get(endpoint + "login", (req, res) => {
-  res.render("dash/login", { titulo: "Sobre Nós", menu: "about" });
+  res.render("dash/login", { titulo: "Sobre Nós", menu: "about", autenticado: true });
 });
 
 // Rota para a página "Login"
-appRouter.get(endpoint + "dashboard",(req, res) => {
+appRouter.get(endpoint + "dashboard",segRouter.isAuthenticated,(req, res) => {
         PostController
         .listPostsBlog()
         .then((posts) => {
@@ -52,7 +52,6 @@ appRouter.get(endpoint + "dashboard",(req, res) => {
                 titulo: "Blog",
                 menu: "home",
                 posts: posts,
-                token: ""
             }); });
   });
 

@@ -21,6 +21,12 @@
                 <div class="row" style="justify-content: center;align-items: center;">
                   <a href="#blog-single.html" class="col-lg-4 bg-color-three mt-lg-0 mt-0">
                     <div class="blog-article-post d-flex flex-wrap align-content-between">
+                      <div>
+                        <% if (autenticado === false) { %>
+                          <!-- Se 'autenticado' for igual a 'false', exiba uma mensagem de erro -->
+                          <p>Você precisa estar autenticado para acessar esta página.</p>
+                      <% } %>
+                      </div>
                       <form method="POST" id="login" action="/secure/login">
                         <div class="post-content">
                           <h4 class="blog_post_title my-2">Login</h4><br>
