@@ -1,5 +1,10 @@
 # Projeto Node.js com Knex.js e Express
 
+##Open API
+
+Para para ter uma visualização melhor da collection:
+[Documentação](https://documenter.getpostman.com/view/8873571/2s9Ye8fuxk#ce2b633f-f90c-464e-ac22-e1d36898be0b)
+
 ## Configuração
 
 #### Para iniciar o projeto sem problemas siga os passos abaixo:
