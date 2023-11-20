@@ -17,6 +17,7 @@ apiRouter.post(endpoint + "usuarios", segRouter.checkToken, UsuarioController.cr
 apiRouter.get(endpoint + "usuarios/:id", segRouter.checkToken, UsuarioController.getUserById);
 apiRouter.get(endpoint + "usuarios", segRouter.checkToken, UsuarioController.getAllUsers);
 apiRouter.delete(endpoint + "usuarios/:id", segRouter.checkToken, UsuarioController.deleteUsuario);
+apiRouter.put(endpoint + "usuarios/:id", segRouter.checkToken, UsuarioController.updateUser);
 
 /**
  * Routes para Posts.

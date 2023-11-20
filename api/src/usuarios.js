@@ -113,6 +113,27 @@ exports.getAllUsers = async (req, resp) => {
   }
 };
 
+exports.updateUser = async (req, resp) => {
+  const userId = req.params.id;
+  const { nome, senha, perfil } = req.body;
+
+  try {
+    const updatedUser = await knex("usuarios")
+      .where({ id: userId })
+      .update({ nome, senha: bcrypt.hashSync(senha, 8), perfil })
+      .returning("*");
+
+    if (updatedUser.length === 0) {
+      resp.status(404).json({ message: "Usuario não encontrado" });
+    } else {
+      resp.status(200).json(updatedUser[0]);
+    }
+  } catch (error) {
+    console.error(error);
+    resp.status(500).json({ message: "Falha ao atualizar o usuario." });
+  }
+};
+
 exports.deleteUsuario = async (req, resp) => {
   try {
     const usuarios = await knex
